@@ -6,6 +6,7 @@ router.get("/get-urgent",OrderController.getUrgent)
 router.post("/writecleaner/:id",OrderController.getCleaner)
 router.get("/approved-area/:order_id",OrderController.approvedArea)
 router.get("/order-ongoing/:order_id",OrderController.orderOngoing)
+router.get("/history/:id",OrderController.getHistory)
 
 
 module.exports = router;

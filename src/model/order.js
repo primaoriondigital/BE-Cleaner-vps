@@ -50,4 +50,15 @@ const writeOrderOngoing = (order_id) => {
     })
 }
 
-module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing}
+const getOrderHistory = (id) => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`SELECT * FROM "order" where cleaner_id = '${id}'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    })
+})
+}
+module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory}

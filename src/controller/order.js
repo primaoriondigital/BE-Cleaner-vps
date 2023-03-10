@@ -37,7 +37,14 @@ const OrderController = {
         response(res,404,false,error,"order on going fail")
 
     }
-}
+    }, getHistory: async (req,res,next) => {
+        const result = await ModelOrder.getOrderHistory(req.params.id)
+        try {
+            response(res,200,true,result.rows,"order history success")
+        } catch (error) {
+            response(res,404,false,error,"order history fail")
+        }
+    }
 }
 
 exports.OrderController = OrderController

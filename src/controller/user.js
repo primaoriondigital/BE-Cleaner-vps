@@ -53,6 +53,13 @@ const UsersController = {
         }
         user.token = generateToken(payload)
         response(res, 200, true, user,"login success")
+    }, getRating: async (req,res,next) => {
+        const result = await ModelUser.Rating(req.params.id)
+        try {
+            response(res, 200, true, result.rows,"get rating success")
+        } catch (error) {
+            response(res, 404, false, error,"get rating fail")
+        }
     }
 }
 
