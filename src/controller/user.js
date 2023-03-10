@@ -32,11 +32,11 @@ const UsersController = {
     }
     },
     login: async (req,res,next)=>{
-        console.log('name',req.body.name)
+        console.log('phone',req.body.phone)
         console.log('password',req.body.password)
-        let {rows:[user]} = await ModelUser.findName(req.body.name)
+        let {rows:[user]} = await ModelUser.findName(req.body.phone)
         if(!user){
-            return response(res, 404, false, null," username not found")
+            return response(res, 404, false, null," phone number not found")
         }
         const password = req.body.password
         const validation1 = bcrypt.compareSync(password,user.password)
@@ -48,10 +48,11 @@ const UsersController = {
             id: user.id,
             fullname: user.name,
             email: user.email,
-            role: user.role
+            role: user.role,
+            phone: user.phone
         }
         user.token = generateToken(payload)
-        response(res, 200, false, user,"login success")
+        response(res, 200, true, user,"login success")
     }
 }
 

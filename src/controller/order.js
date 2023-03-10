@@ -1,0 +1,43 @@
+const { response } = require("../middleware/common");
+const ModelOrder = require("../model/order")
+
+const OrderController = {
+    getUrgent: async(req,res,next) => {
+        const result = await ModelOrder.getOrderUrgent()
+        try {
+           
+            response(res,200,true,result.rows,"register success")
+        } catch (error) {
+            response(res,404,false,error,"register fail")
+        }
+    }, getCleaner: async (req,res,next) => {
+        const data = {
+            id : req.params.id,
+            order_id: req.body.order_id
+        }
+        try {
+            const result = await ModelOrder.writeCleaner(data)
+            response(res,200,true,result.command,"get cleaner success")
+        } catch (error) {
+            response(res,404,false,error,"get cleaner fail")
+        }
+    }, approvedArea: async(req,res,next) => {
+            const result = await ModelOrder.writeApprovedArea(req.params.order_id)
+        try {
+            response(res,200,true,result.command,"approved area success")
+        } catch (error) {
+            response(res,404,false,error,"approved area fail")
+
+        }
+    }, orderOngoing: async(req,res,next) => {
+        const result = await ModelOrder.writeOrderOngoing(req.params.order_id)
+    try {
+        response(res,200,true,result.command,"order on going success")
+    } catch (error) {
+        response(res,404,false,error,"order on going fail")
+
+    }
+}
+}
+
+exports.OrderController = OrderController
