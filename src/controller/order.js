@@ -44,6 +44,14 @@ const OrderController = {
         } catch (error) {
             response(res,404,false,error,"order history fail")
         }
+    }, getBooking: async(req,res,next) => {
+        const result = await ModelOrder.getOrderBooking()
+        try {
+           
+            response(res,200,true,result.rows,"get booking success")
+        } catch (error) {
+            response(res,404,false,error,"get booking fail")
+        }
     }
 }
 

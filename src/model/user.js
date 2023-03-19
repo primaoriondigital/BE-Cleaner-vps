@@ -11,6 +11,18 @@ const findName = (phone) => {
     }))
 }
 
+const findAll = () => {
+    return new Promise ((resolve,reject)=>
+        Pool.query(`SELECT * FROM "user"`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    }))
+}
+
+
 const addUser = (data) => {
     const {id,name,phone,role,password,email,date_birth,photo_user,review_status,domisili,address} = data
     return new Promise((resolve, reject) => {
@@ -37,4 +49,4 @@ const Rating = (id) => {
     })
 }
 
-module.exports = {findName,addUser,Rating}
+module.exports = {findName,addUser,Rating,findAll}

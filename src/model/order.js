@@ -11,6 +11,18 @@ const getOrderUrgent = () => {
 })
 }
 
+const getOrderBooking = () => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`SELECT * FROM "order" where order_status = 'ready to book'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    })
+})
+}
+
 const writeCleaner = (data) => {
     const {order_id,id} = data
     return new Promise((resolve, reject) => {
@@ -61,4 +73,4 @@ const getOrderHistory = (id) => {
     })
 })
 }
-module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory}
+module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking}

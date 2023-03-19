@@ -32,33 +32,47 @@ const UsersController = {
     }
     },
     login: async (req,res,next)=>{
-        console.log('phone',req.body.phone)
-        console.log('password',req.body.password)
-        let {rows:[user]} = await ModelUser.findName(req.body.phone)
-        if(!user){
-            return response(res, 404, false, null," phone number not found")
+        try {
+            console.log('phone',req.body.phone)
+            console.log('password',req.body.password)
+            let {rows:[user]} = await ModelUser.findName(req.body.phone)
+            if(!user){
+                return response(res, 404, false, null," phone number not found")
+            }
+            const password = req.body.password
+            const validation1 = bcrypt.compareSync(password,user.password)
+            if(!validation1){
+                return response(res, 404, false, null,"wrong password")
+            }
+            delete user.password
+            let payload = {
+                id: user.id,
+                fullname: user.name,
+                email: user.email,
+                role: user.role,
+                phone: user.phone
+            }
+            user.token = generateToken(payload)
+            response(res, 200, true, user,"login success")
+        
+        } catch (error) {
+            response(res, 404, false, error,"login fail")
         }
-        const password = req.body.password
-        const validation1 = bcrypt.compareSync(password,user.password)
-        if(!validation1){
-            return response(res, 404, false, null,"wrong password")
-        }
-        delete user.password
-        let payload = {
-            id: user.id,
-            fullname: user.name,
-            email: user.email,
-            role: user.role,
-            phone: user.phone
-        }
-        user.token = generateToken(payload)
-        response(res, 200, true, user,"login success")
+        
+
     }, getRating: async (req,res,next) => {
         const result = await ModelUser.Rating(req.params.id)
         try {
             response(res, 200, true, result.rows,"get rating success")
         } catch (error) {
             response(res, 404, false, error,"get rating fail")
+        }
+    }, getAll: async (req,res,next) => {
+        const result = await ModelUser.findAll()
+        try {
+            response(res, 200, true, result.rows,"get all cleaner success")
+        } catch (error) {
+            response(res, 404, false, error,"get all cleaner fail")
         }
     }
 }
