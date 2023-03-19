@@ -17,7 +17,7 @@ const OrderController = {
         }
         try {
             const result = await ModelOrder.writeCleaner(data)
-            response(res,200,true,result.command,"get cleaner success")
+            response(res,200,true,data,"get cleaner success")
         } catch (error) {
             response(res,404,false,error,"get cleaner fail")
         }
