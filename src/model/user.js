@@ -2,7 +2,7 @@ const Pool = require("./../config/db");
 
 const findName = (phone) => {
     return new Promise ((resolve,reject)=>
-        Pool.query(`SELECT * FROM "user" where phone = ${phone}`,(err,result)=>{
+        Pool.query(`SELECT * FROM "user" where phone = '${phone}'`,(err,result)=>{
             if(!err){
                 resolve(result)
             } else {
