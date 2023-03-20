@@ -74,6 +74,13 @@ const UsersController = {
         } catch (error) {
             response(res, 404, false, error,"get all cleaner fail")
         }
+    }, getId: async (req,res,next) => {
+        const result = await ModelUser.findId(req.params.id)
+        try {
+            response(res,200,true,result.rows,"get cleaner detail success")
+        } catch (error) {
+            response(res, 404, false, error, "get cleaner detail fail")
+        }
     }
 }
 

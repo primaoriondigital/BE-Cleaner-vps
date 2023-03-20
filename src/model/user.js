@@ -49,4 +49,15 @@ const Rating = (id) => {
     })
 }
 
-module.exports = {findName,addUser,Rating,findAll}
+const findId = (id) => {
+    return new Promise ((resolve,reject)=>
+        Pool.query(`SELECT * FROM "user" where id = '${id}'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    }))
+}
+
+module.exports = {findName,addUser,Rating,findAll,findId}
