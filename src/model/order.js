@@ -73,4 +73,16 @@ const getOrderHistory = (id) => {
     })
 })
 }
-module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking}
+
+const getCleanerArive = (order_id) => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`UPDATE "order" SET order_status='cleaner arive' WHERE order_id='${order_id}'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking,getCleanerArive}
