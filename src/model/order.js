@@ -85,4 +85,16 @@ const getCleanerArive = (order_id) => {
         })
     })
 }
-module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking,getCleanerArive}
+
+const getBookedOrderNow = (id) => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`SELECT * FROM "order" WHERE order_status='get cleaner' AND cleaner_id='${id}'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+        })
+    })
+}
+module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking,getCleanerArive,getBookedOrderNow}

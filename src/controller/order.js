@@ -59,6 +59,13 @@ const OrderController = {
         } catch (error) {
             response(res,404,false,error,"get cleaner arive fail")
         }
+    },getBookedOrder: async(req,res,next) => {
+        const result = await ModelOrder.getBookedOrderNow(req.params.id)
+        try {            
+            response(res,200,true,result.rows,"get booked order success")
+        } catch (error) {
+            response(res,404,false,error,"get booked order fail")
+        }
     }
 }
 
