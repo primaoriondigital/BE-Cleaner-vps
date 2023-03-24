@@ -1,7 +1,7 @@
 const Pool = require("./../config/db");
 const getOrderUrgent = () => {
     return new Promise((resolve, reject) => {
-        Pool.query(`SELECT * FROM "order" where order_status = 'open'`,(err,result)=>{
+        Pool.query(`SELECT * FROM "order" where order_status = 'Open'`,(err,result)=>{
             if(!err){
                 resolve(result)
             } else {
@@ -13,7 +13,7 @@ const getOrderUrgent = () => {
 
 const getOrderBooking = () => {
     return new Promise((resolve, reject) => {
-        Pool.query(`SELECT * FROM "order" where order_status = 'ready to book'`,(err,result)=>{
+        Pool.query(`SELECT * FROM "order" where order_status = 'Ready to Book'`,(err,result)=>{
             if(!err){
                 resolve(result)
             } else {
@@ -52,7 +52,7 @@ const writeApprovedArea = (order_id) => {
 const writeOrderOngoing = (order_id) => {
     // const {order_id,id} = data
     return new Promise((resolve, reject) => {
-        Pool.query(`UPDATE "order" SET order_status='order on going' WHERE order_id='${order_id}'`,(err,result)=>{
+        Pool.query(`UPDATE "order" SET order_status='Order on Going' WHERE order_id='${order_id}'`,(err,result)=>{
             if(!err){
                 resolve(result)
             } else {
