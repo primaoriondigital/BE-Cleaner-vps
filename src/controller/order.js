@@ -66,6 +66,20 @@ const OrderController = {
         } catch (error) {
             response(res,404,false,error,"get booked order fail")
         }
+    },getOrderDone: async(req,res,next) => {
+        const result = await ModelOrder.getOrderStatusDone()
+        try {            
+            response(res,200,true,result.rows,"get booked order success")
+        } catch (error) {
+            response(res,404,false,error,"get booked order fail")
+        }
+    },getOrderOngoing: async(req,res,next) => {
+        const result = await ModelOrder.getOrderStatusOngoing()
+        try {            
+            response(res,200,true,result.rows,"get booked order success")
+        } catch (error) {
+            response(res,404,false,error,"get booked order fail")
+        }
     }
 }
 

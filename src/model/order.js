@@ -97,4 +97,28 @@ const getBookedOrderNow = (id) => {
         })
     })
 }
-module.exports = {getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking,getCleanerArive,getBookedOrderNow}
+
+const getOrderStatusDone = () => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`SELECT * FROM "order" where order_status = 'Done'`,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    })
+})
+}
+
+const getOrderStatusOngoing = () => {
+    return new Promise((resolve, reject) => {
+        Pool.query(`SELECT * FROM "order" WHERE order_status NOT IN ('Done','waiting for payment','Ready to Book','Open','Cancel') `,(err,result)=>{
+            if(!err){
+                resolve(result)
+            } else {
+                reject(err)
+            }
+    })
+})
+}
+module.exports = {getOrderStatusOngoing,getOrderUrgent,writeCleaner,writeApprovedArea,writeOrderOngoing,getOrderHistory,getOrderBooking,getCleanerArive,getBookedOrderNow,getOrderStatusDone}

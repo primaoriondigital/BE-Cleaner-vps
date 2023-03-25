@@ -10,5 +10,7 @@ router.get("/order-ongoing/:order_id",OrderController.orderOngoing)
 router.get("/history/:id",OrderController.getHistory)
 router.get("/cleaner-arive/:order_id",OrderController.cleanerArive)
 router.get("/get-booking-detail/:id",OrderController.getBookedOrder)
+router.get("/get-order-done",OrderController.getOrderDone)
+router.get("/get-order-ongoing",OrderController.getOrderOngoing)
 
 module.exports = router;
